@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quiz Questions</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init('6c7eE2eVv1kXg44En');
+        })();
+
+        /// Extract URL parameters
+        function getURLParams() {
+            var params = {};
+            var parts = window.location.search.substring(1).split('&');
+            for (var i = 0; i < parts.length; i++) {
+                var pair = parts[i].split('=');
+                var key = decodeURIComponent(pair[0]);
+                var value = decodeURIComponent(pair[1]);
+                params[key] = value;
+            }
+            return params;
+        }
+
+        // Get name and email from URL parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var username = urlParams.get('name');
+        var email = urlParams.get('email');
+
+        // Set name and email values in the form fields
+        document.getElementById('username').value = username || '';
+        document.getElementById('email').value = email || '';
+
+    </script>
+    <script>
+        
+        function aleo() {
+var answer1 = document.getElementById("question1").value;
+var answer2 = document.getElementById("question2").value;
+var answer3 = document.getElementById("question3").value;
+var answer4 = document.getElementById("question4").value;
+var answer5 = document.getElementById("question5").value;
+
+
+
+// Calculate the total score based on the selected answers
+var anSum = parseInt(answer1) + parseInt(answer2) + parseInt(answer3) + parseInt(answer4) + parseInt(answer5);
+
+var aResult = "Muggle";
+if (answer1 === "0" || answer2 === "0" || answer3 === "0" || answer4 === "0" || answer5 === "0") {
+    alert("You are a Muggle! Answer the questions!");
+}
+else if (anSum === 50 || anSum === 60 || anSum === 70 || anSum === 80) {
+    aResult = "Hufflepuff";
+    alert("Your results will be sent to your email by clicking the button below!");
+}
+else if (anSum === 90 || anSum === 100 || anSum === 110 || anSum === 120) {
+    aResult = "Ravenclaw";
+    alert("Your results will be sent to your email by clicking the button below!");
+}
+else if (anSum === 130 || anSum === 140 || anSum === 150 || anSum === 160) {
+    aResult = "Gryffindor";
+    alert("Your results will be sent to your email by clicking the button below!");
+}
+else if (anSum === 170 || anSum === 180 || anSum === 190 || anSum === 200) {
+    aResult = "Slytherin";
+    alert("Your results will be sent to your email by clicking the button below!");
+    
+}
+else {
+    alert("You are a Muggle! Answer the questions!");
+}
+anResult = aResult;
+
+}
+anResult = aResult;
+
+function emi(to_name, to_email, anResult, user_email) {
+var templateParams = {
+    tonam: to_name,
+    emil: to_email,
+    result: anResult,
+    usemill: user_email,
+
+};
+
+emailjs.send('Formservice', 'template_am9aazu', templateParams, "6c7eE2eVv1kXg44En")
+    .then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+    }, function (error) {
+        console.log('FAILED...', error);
+    });
+
+};
+
+    </script>
+</head>
+
+<body>
+    <h1>Questions</h1>
+    <div class="container">
+        </br>
+        <div class="question1">
+            <label for="question1">Question 1: What would your friends describe you as?</label>
+            <br>
+            <select id="question1" name="question1" class="form-control">
+                <option value="0"></option>
+                <option value="10">Loyal</option>
+                <option value="20">Smart</option>
+                <option value="30">Brave</option>
+                <option value="40">Decisive</option>
+            </select>
+        </div>
+        </br>
+        <div class="question2">
+            <label for="question2">Question 2: Your friend has a really big problem. How would you react?</label>
+            <br>
+            <select id="question2" name="question2" class="form-control">
+                <option value="0"></option>
+                <option value="10">I'd have their back and defend them no matter what.</option>
+                <option value="20">I'd help them find a solution.</option>
+                <option value="30">I'd support them through the whole thing.</option>
+                <option value="40">I'd tell them to pick themself up and fix their problem.</option>
+            </select>
+        </div>
+
+        </br>
+        <div class="question3">
+            <label for="question3">Question 3: What is your favorite landscape?</label>
+            <br>
+            <select id="question3" name="question3" class="form-control">
+                <option value="0"></option>
+                <option value="10">The ocean.</option>
+                <option value="20">The night sky.</option>
+                <option value="30">The mountains.</option>
+                <option value="40">The jungle.</option>
+            </select>
+        </div>
+        </br>
+        <div class="question4">
+            <label for="question4">Question 4: What is your favorite color?</label>
+            <br>
+            <select id="question4" name="question4" class="form-control">
+                <option value="0"></option>
+                <option value="10">Yellow</option>
+                <option value="20">Blue</option>
+                <option value="30">Red</option>
+                <option value="40">Green</option>
+            </select>
+        </div>
+
+        <div class="question5">
+            <label for="question5">If you were stuck on a deserted island, and you could have one thing, what would it be?</label>
+            <br>
+            <select id="question5" name="question5" class="form-control">
+                <option value="0"></option>
+                <option value="10">My best friend.</option>
+                <option value="20">An axe.</option>
+                <option value="30">Tons of food.</option>
+                <option value="40">Some sort of entertainment.</option>
+            </select>
+        </div>
+
+        </br>
+        <button type="submit" class="btn btn-primary" id='page2Btn' onclick="aleo()">Submit</button>
+        </br>
+        <button type="submit" class="btn btn-primary" id='page2Btn' onclick="emi(username, email, anResult, email)">Send Results</button>
+        
+    </div>
+</body>
+
+</html>
