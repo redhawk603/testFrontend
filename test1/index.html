@@ -11,8 +11,24 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com/dist/email.min.js"></script>
     <script>
         (function () {
-            emailjs.init('6c7eE2eVv1kXg44En');
-        })();
+    emailjs.init('6c7eE2eVv1kXg44En');
+})();
+
+
+
+
+/// Extract URL parameters
+function getURLParams() {
+    var params = {};
+    var parts = window.location.search.substring(1).split('&');
+    for (var i = 0; i < parts.length; i++) {
+        var pair = parts[i].split('=');
+        var key = decodeURIComponent(pair[0]);
+        var value = decodeURIComponent(pair[1]);
+        params[key] = value;
+    }
+    return params;
+}
     </script>
 </head>
 
@@ -24,13 +40,13 @@
         </br>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="username" name="name" class="form-control" placeholder="Enter your name.">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter your name.">
         </div>
         <div class="form-group"> 
             <label for="email">E-mail:</label>
             <input type="text" id="email" name="email" class="form-control" placeholder="Enter your e-mail.">
         </div>
-        <button type="submit" id="page1Btn" class="btn btn-primary" onclick="aleh()">Submit</button>
+        <button type="submit" id="page1Btn" class="btn btn-primary" onclick="submit()">Submit</button>
         <br>
     <p>Please note that this website is not a reliable way to know your Hogwarts house. This is just a test website for fun. More questions will be added soon!</p>
         <script src="index.js"></script>

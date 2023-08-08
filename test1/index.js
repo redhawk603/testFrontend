@@ -1,19 +1,4 @@
-(function () {
-    emailjs.init('6c7eE2eVv1kXg44En');
-})();
 
-/// Extract URL parameters
-function getURLParams() {
-    var params = {};
-    var parts = window.location.search.substring(1).split('&');
-    for (var i = 0; i < parts.length; i++) {
-        var pair = parts[i].split('=');
-        var key = decodeURIComponent(pair[0]);
-        var value = decodeURIComponent(pair[1]);
-        params[key] = value;
-    }
-    return params;
-}
 
 // Get name and email from URL parameters
 var urlParams = new URLSearchParams(window.location.search);
@@ -25,9 +10,11 @@ document.getElementById('username').value = username || '';
 document.getElementById('email').value = email || '';
 
 
-function aleh() {
+
+async function submit() {
     var name = document.getElementById("username").value;
     var email = document.getElementById("email").value;
+    console.log(name,email)
     var validRegex = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g;
     if (name === "") {
         alert("Please enter your name!");
@@ -41,6 +28,29 @@ function aleh() {
     else {
         alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
         window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
+
+    
+    
+        try {
+            const response = await 
+                fetch("http://localhost:3000/userData",  {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email
+                    }),
+                    })
+            const result = await response.json();
+            console.log(result);
+        }
+        
+        catch (err) { 
+            console.log(err);
+        }
+        
     }
 }
 
@@ -69,7 +79,7 @@ function ValidateEmail(email) {
 }
 
 
-function aleo() {
+function submit2() {
     var answer1 = document.getElementById("question1").value;
     var answer2 = document.getElementById("question2").value;
     var answer3 = document.getElementById("question3").value;
@@ -127,4 +137,3 @@ function aleo() {
         });
     
     };
-    
