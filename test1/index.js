@@ -135,5 +135,7 @@ function submit2() {
         }, function (error) {
             console.log('FAILED...', error);
         });
+
+    alert("Your results have been sent to your email!");
     
     };
