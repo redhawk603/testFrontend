@@ -9,7 +9,13 @@ var email = urlParams.get('email');
 document.getElementById('username').value = username || '';
 document.getElementById('email').value = email || '';
 
+var userid = ""
+console.log(userid,"outside")
 
+function back(){
+    window.location.href = "index.html";
+
+}
 
 async function submit() {
     var name = document.getElementById("username").value;
@@ -27,7 +33,6 @@ async function submit() {
 
     else {
         alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
-        window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
 
     
     
@@ -44,14 +49,22 @@ async function submit() {
                     }),
                     })
             const result = await response.json();
-            console.log(result);
+          const  userId = result.insertedId
+            //data(userId)
+            console.log(userId,"inside")
+            window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&_id="+ encodeURIComponent(userId);
         }
         
         catch (err) { 
             console.log(err);
         }
-        
+
     }
+}
+
+function data(data){
+    var data = data
+    console.log(data,"data function")
 }
 
 function ValidateEmail(email) {
@@ -86,8 +99,16 @@ function submit2() {
     var answer4 = document.getElementById("question4").value;
     var answer5 = document.getElementById("question5").value;
     
-    
-    
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // console.log(urlParams.toString())
+
+    const userId = urlParams.get('_id');
+    console.log(userId)
+
+    // var userId = document.getElementById("userid").value;
+    // console.log(userId,"div")
+
     // Calculate the total score based on the selected answers
     var anSum = parseInt(answer1) + parseInt(answer2) + parseInt(answer3) + parseInt(answer4) + parseInt(answer5);
     
@@ -116,6 +137,7 @@ function submit2() {
         alert("You are a Muggle! Answer the questions!");
     }
     anResult = aResult;
+
     
     }
     anResult = aResult;
