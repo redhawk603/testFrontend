@@ -38,7 +38,7 @@ async function submit() {
 
         try {
             const response = await
-                fetch("https://test-backend-1.vercel.app/userData", {
+                fetch("https://test-backend-q.onrender.com/userData", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
