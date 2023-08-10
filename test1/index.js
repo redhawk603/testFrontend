@@ -32,13 +32,13 @@ async function submit() {
     }
 
     else {
-        alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
+       
 
 
 
         try {
             const response = await
-                fetch("https://test-backend-q.onrender.com/userData", {
+                fetch("https://test-backend-1.vercel.app/userData", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -49,15 +49,20 @@ async function submit() {
                     }),
                 })
             const result = await response.json();
-            const userId = result.insertedId
+            const userId = result.result.insertedId
             //data(userId)
-            console.log(userId, "inside")
+            console.log(result)
+            alert(result.msg)
+            alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
+
             window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&_id=" + encodeURIComponent(userId);
         }
 
         catch (err) {
             console.log(err);
+            alert("This email already exists in the database.")
         }
+
 
     }
 }
