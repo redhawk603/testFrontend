@@ -96,7 +96,7 @@ function ValidateEmail(email) {
 
 }
 
-
+// var resultDesc = "";
 async function submit2() {
     var answer1 = document.getElementById("question1").value;
     var answer2 = document.getElementById("question2").value;
@@ -118,30 +118,38 @@ async function submit2() {
     var anSum = parseInt(answer1) + parseInt(answer2) + parseInt(answer3) + parseInt(answer4) + parseInt(answer5);
 
     var aResult = "Muggle";
+    var reDesc = "";
     if (answer1 === "0" || answer2 === "0" || answer3 === "0" || answer4 === "0" || answer5 === "0") {
         alert("You are a Muggle! Answer the questions!");
     }
     else if (anSum === 50 || anSum === 60 || anSum === 70 || anSum === 80) {
         aResult = "Hufflepuff";
+        reDesc = "loyal and friendly person! People enjoy being around you, and you can always put a smile on someone's face. You are a hard worker and are always willing to help others. You are a great friend to have";
         alert("Your results will be sent to your email by clicking the button below!");
     }
     else if (anSum === 90 || anSum === 100 || anSum === 110 || anSum === 120) {
         aResult = "Ravenclaw";
+        reDesc = "intelligent and creative person! You are always looking for new ways to learn and grow. You are a great problem solver and are always willing to help others. You are very intelligent"
         alert("Your results will be sent to your email by clicking the button below!");
     }
     else if (anSum === 130 || anSum === 140 || anSum === 150 || anSum === 160) {
         aResult = "Gryffindor";
+        reDesc = "brave and courageous person! You are always willing to stand up for what you believe in and are not afraid to take risks. You are a great leader and are always willing to help others. You are very brave"
         alert("Your results will be sent to your email by clicking the button below!");
     }
     else if (anSum === 170 || anSum === 180 || anSum === 190 || anSum === 200) {
         aResult = "Slytherin";
+        reDesc = "ambitious and cunning person! You are always looking for new ways to get ahead and are not afraid to take risks. You are a great leader and are always willing to help others. You are very ambitious";
         alert("Your results will be sent to your email by clicking the button below!");
 
     }
     else {
         alert("You are a Muggle! Answer the questions!");
     }
+    
     anResult = aResult;
+    resultDesc = reDesc;
+    console.log(resultDesc)
     try {
         const response = await
             fetch(`https://test-backend-q.onrender.com/userData/${userId}`, {
@@ -162,20 +170,25 @@ async function submit2() {
     }
 
 }
-anResult = aResult;
 
-function emi(to_name, to_email, anResult, user_email) {
+
+function emi(to_name, to_email, anResult, resultDesc) {
+   
+    console.log(resultDesc)
     var templateParams = {
         tonam: to_name,
         emil: to_email,
         result: anResult,
-        usemill: user_email,
+        resultDesc: resultDesc,
+
 
     };
+    console.log(templateParams)
 
     emailjs.send('Formservice', 'template_am9aazu', templateParams, "6c7eE2eVv1kXg44En")
         .then(function (response) {
             console.log('SUCCESS!', response.status, response.text);
+            console.log(resultDesc);
         }, function (error) {
             console.log('FAILED...', error);
         });
