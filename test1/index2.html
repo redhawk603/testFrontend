@@ -9,22 +9,31 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Handjet:wght@500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com/dist/email.min.js"></script>
 </head>
 
-<body>
+<body onload="declareData()">
     <h1>Questions</h1>
-    <div class="container">
+    <div class="questionContainer">
+    <div class="container2">
+        <p> Your name is: <div id="username"></div> </p>
+        <p> Your email is: <div id="useremail"></div></p>
+        <div class="backBtn">
+            <p>If you made a mistake, or if you want to go back to the previous page to change anything, do so by clicking the button below.</p>
+            </br>
+            <button type="button" id="backBtn" class="btn btn-primary" onclick="back()">⬅ Back</button>
+           </div>
+
+    </div>
+    <div class="container3">
        <div id="userid"></div>
-       <div class="backBtn">
-        <p>If you want to go back to change anything, do so my clicking the button below.</p>
-        </br>
-        <button type="button" id="backBtn" class="btn btn-primary" onclick="back()">⬅ Back</button>
-       </div>
         </br>
         <div class="question1">
             <label for="question1">Question 1: What would your friends describe you as?</label>
-            <br>
+        </br>
             <select id="question1" name="question1" class="form-control">
                 <option value="0"></option>
                 <option value="20">Smart</option>
@@ -36,7 +45,7 @@
         </br>
         <div class="question2">
             <label for="question2">Question 2: Your friend has a really big problem. How would you react?</label>
-            <br>
+        </br>
             <select id="question2" name="question2" class="form-control">
                 <option value="0"></option>
                 <option value="40">I'd tell them to pick themself up and fix their problem.</option>
@@ -49,7 +58,7 @@
         </br>
         <div class="question3">
             <label for="question3">Question 3: What is your favorite landscape?</label>
-            <br>
+        </br>
             <select id="question3" name="question3" class="form-control">
                 <option value="0"></option>
                 <option value="10">The ocean.</option>
@@ -61,7 +70,7 @@
         </br>
         <div class="question4">
             <label for="question4">Question 4: What is your favorite color?</label>
-            <br>
+        </br>
             <select id="question4" name="question4" class="form-control">
                 <option value="0"></option>
                 <option value="30">Red</option>
@@ -73,7 +82,7 @@
     </br>
         <div class="question5">
             <label for="question5">If you were stuck on a deserted island, and you could have one thing, what would it be?</label>
-            <br>
+        </br>
             <select id="question5" name="question5" class="form-control">
                 <option value="0"></option>
                 <option value="20">An axe.</option>
@@ -91,6 +100,7 @@
         <button type="submit" class="btn btn-primary" id='page2Btn' onclick="emi(username, email, anResult, resultDesc)">Send Results</button>
         
     </div>
+</div>
 </body>
 
 </html>

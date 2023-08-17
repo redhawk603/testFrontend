@@ -9,13 +9,10 @@ var email = urlParams.get('email');
 document.getElementById('username').value = username || '';
 document.getElementById('email').value = email || '';
 
-var userid = ""
-console.log(userid, "outside")
+var userId = ""
+console.log(userId, "outside")
 
-function back() {
-    window.location.href = "index.html";
 
-}
 
 async function submit() {
     var name = document.getElementById("username").value;
@@ -32,11 +29,14 @@ async function submit() {
     }
 
     else {
-       
+
 
 
 
         try {
+            document.getElementById("page1Btn").innerHTML = ""
+            let btn = document.getElementById("page1Btn")
+            btn.classList.add("loading")
             const response = await
                 fetch("https://test-backend-q.onrender.com/userData", {
                     method: "POST",
@@ -49,27 +49,39 @@ async function submit() {
                     }),
                 })
             const result = await response.json();
-            const userId = result.result.insertedId
+            userId = result.result.insertedId
+            console.log({ userId }, result.result.insertedId)
+            btn.classList.remove("loading")
+            document.getElementById("page1Btn").innerHTML = "Submit"
             //data(userId)
             console.log(result)
             alert(result.msg)
             alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
 
             window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&_id=" + encodeURIComponent(userId);
-        }
+            // document.getElementById("username").value = name;
+            // document.getElementById("useremail").value = email;
 
+        }
         catch (err) {
+            document.getElementById("page1Btn").innerHTML = ""
+            let btn = document.getElementById("page1Btn")
+            btn.classList.add("loading")
             console.log(err);
             alert("This email already exists in the database.")
+            btn.classList.remove("loading")
+            document.getElementById("page1Btn").innerHTML = "Submit"
         }
 
 
     }
 }
 
-function data(data) {
-    var data = data
-    console.log(data, "data function")
+function declareData(name, email) {
+    const username = urlParams.get('name');
+    const useremail = urlParams.get('email');
+    document.getElementById("username").innerHTML = username;
+    document.getElementById("useremail").innerHTML = useremail;
 }
 
 function ValidateEmail(email) {
@@ -109,7 +121,7 @@ async function submit2() {
     // console.log(urlParams.toString())
 
     const userId = urlParams.get('_id');
-    console.log(userId)
+    console.log(userId, username, useremail)
 
     // var userId = document.getElementById("userid").value;
     // console.log(userId,"div")
@@ -118,7 +130,7 @@ async function submit2() {
     var anSum = parseInt(answer1) + parseInt(answer2) + parseInt(answer3) + parseInt(answer4) + parseInt(answer5);
 
     var aResult = "Muggle";
-    var reDesc = "";
+    var reDesc = "normal person. Please answer the questions";
     if (answer1 === "0" || answer2 === "0" || answer3 === "0" || answer4 === "0" || answer5 === "0") {
         alert("You are a Muggle! Answer the questions!");
     }
@@ -146,11 +158,15 @@ async function submit2() {
     else {
         alert("You are a Muggle! Answer the questions!");
     }
-    
+
     anResult = aResult;
     resultDesc = reDesc;
     console.log(resultDesc)
+    document.getElementById("page2Btn").innerHTML = ""
+    let btn = document.getElementById("page2Btn")
+    btn.classList.add("loading")
     try {
+
         const response = await
             fetch(`https://test-backend-q.onrender.com/userData/${userId}`, {
                 method: "PUT",
@@ -163,17 +179,27 @@ async function submit2() {
             })
         const result = await response.json();
         console.log(result)
+        btn.classList.remove("loading")
+        document.getElementById("page2Btn").innerHTML = "Submit"
     }
 
     catch (err) {
+        document.getElementById("page2Btn").innerHTML = ""
+        let btn = document.getElementById("page2Btn")
+        btn.classList.add("loading")
         console.log(err);
+        btn.classList.remove("loading")
+        document.getElementById("page2Btn").innerHTML = "Submit"
     }
 
 }
 
 
 function emi(to_name, to_email, anResult, resultDesc) {
-   
+    document.getElementById("page2Btn").innerHTML = ""
+    let btn = document.getElementById("page2Btn")
+    btn.classList.add("loading")
+
     console.log(resultDesc)
     var templateParams = {
         tonam: to_name,
@@ -194,5 +220,74 @@ function emi(to_name, to_email, anResult, resultDesc) {
         });
 
     alert("Your results have been sent to your email!");
+    window.location.href = "index4.html";
+    btn.classList.remove("loading")
+    document.getElementById("page2Btn").innerHTML = "Submit"
+
 
 };
+
+async function submit3() {
+    console.log(userId, "test")
+    var name = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    console.log(name, email)
+    var validRegex = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g;
+    if (name === "") {
+        alert("Please enter your name!");
+    } else if (email === "") {
+        alert("Please enter your email!");
+    }
+    else if (!email.match(validRegex)) {
+        alert("Please enter a valid email!");
+    }
+
+    try {
+        document.getElementById("page1Btn").innerHTML = ""
+        let btn = document.getElementById("page1Btn")
+        btn.classList.add("loading")
+        const userId = new URL(window.location.href).searchParams.get("_id");
+
+        const response = await
+            fetch(`https://test-backend-q.onrender.com/api/update/${encodeURIComponent(userId)}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email
+                }),
+            })
+        const result = await response.json();
+
+        console.log(result)
+        // const userId = result.result.insertedId
+        //data(userId)
+        btn.classList.remove("loading")
+        document.getElementById("page1Btn").innerHTML = "Submit"
+
+        console.log(result)
+        alert("User updated!")
+        alert("Hello " + name + "! " + "Your results will be sent to " + email + ".");
+
+        window.location.href = "index2.html?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&_id=" + encodeURIComponent(userId);
+    }
+
+    catch (err) {
+        document.getElementById("page1Btn").innerHTML = ""
+        let btn = document.getElementById("page1Btn")
+        btn.classList.add("loading")
+        console.log(err);
+        alert("There was an error! Please try again!")
+        btn.classList.remove("loading")
+        document.getElementById("page1Btn").innerHTML = "Submit"
+    }
+
+}
+
+function back() {
+    userId = new URL(window.location.href).searchParams.get("_id");
+    window.location.href = "index3.html" + "?_id=" + encodeURIComponent(userId);
+
+}

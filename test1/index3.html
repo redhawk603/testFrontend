@@ -12,27 +12,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@500&display=swap" rel="stylesheet">
-    <script>
-        (function () {
-    emailjs.init('6c7eE2eVv1kXg44En');
-})();
-
-
-
-
-/// Extract URL parameters
-function getURLParams() {
-    var params = {};
-    var parts = window.location.search.substring(1).split('&');
-    for (var i = 0; i < parts.length; i++) {
-        var pair = parts[i].split('=');
-        var key = decodeURIComponent(pair[0]);
-        var value = decodeURIComponent(pair[1]);
-        params[key] = value;
-    }
-    return params;
-}
-    </script>
 </head>
 
 <body>
@@ -49,9 +28,11 @@ function getURLParams() {
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" class="form-control" placeholder="Enter your e-mail.">
         </div>
-        <button type="submit" id="page1Btn" class="btn btn-primary" onclick="submit()">Submit</button>
+        <button type="submit" id="page1Btn" class="btn btn-primary" onclick="submit3()">Submit</button>
         <br>
     <p>Please note that this website is not a reliable way to know your Hogwarts house. This is just a test website for fun. More questions will be added soon!</p>
+    </br>
+    <p>If you are on this page to change your user information, please do so above.</p>
         <script src="index.js"></script>
     </div>
 </body>
