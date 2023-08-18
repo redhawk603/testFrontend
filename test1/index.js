@@ -171,10 +171,13 @@ async function submit2() {
     console.log(GryffindorViews, HufflepuffViews, RavenclawViews, SlytherinViews,"submit 2")
     console.log(resultDesc)
     document.getElementById("page2Btn").innerHTML = ""
+
+    const emailButton = document.querySelector("#emailBtn");
+
     let btn = document.getElementById("page2Btn")
     btn.classList.add("loading")
     try {
-
+        emailButton.setAttribute('disabled', 'disabled')
         const response = await
             fetch(`https://test-backend-q.onrender.com/userData/${userId}`, {
                 method: "PUT",
@@ -212,6 +215,9 @@ async function submit2() {
         btn.classList.remove("loading")
         document.getElementById("page2Btn").innerHTML = "Submit"
     }
+
+    emailButton.removeAttribute('disabled')
+
 
 }
 
