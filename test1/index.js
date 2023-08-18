@@ -1,3 +1,4 @@
+// import { CURSOR_FLAGS } from "mongodb";
 
 
 // Get name and email from URL parameters
@@ -18,7 +19,7 @@ async function submit() {
     var name = document.getElementById("username").value;
     var email = document.getElementById("email").value;
     console.log(name, email)
-    var validRegex = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g;
+    var validRegex = /^([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$)/gim;
     if (name === "") {
         alert("Please enter your name!");
     } else if (email === "") {
@@ -133,6 +134,7 @@ async function submit2() {
     var RavenclawViews = 0
     var SlytherinViews = 0
     var aResult = "Muggle";
+
     var reDesc = "normal person. Please answer the questions";
     if (answer1 === "0" || answer2 === "0" || answer3 === "0" || answer4 === "0" || answer5 === "0") {
         alert("You are a Muggle! Answer the questions!");
@@ -167,6 +169,7 @@ async function submit2() {
     }
 
     anResult = aResult;
+
     resultDesc = reDesc;
     console.log(GryffindorViews, HufflepuffViews, RavenclawViews, SlytherinViews,"submit 2")
     console.log(resultDesc)
@@ -223,7 +226,52 @@ async function submit2() {
 
 var check = GryffindorViews, HufflepuffViews, RavenclawViews, SlytherinViews
 
-function emi(to_name, to_email, anResult, resultDesc) {
+async function openai(query){
+    try{
+
+        console.log({query});
+
+        
+
+        const response = await fetch("http://localhost:3000/api/ai", {
+            
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                query: query,
+            }),
+        });
+
+        const result = await response.json();
+
+        console.log(result)
+
+        return result.message.content
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+async function emi(to_name, to_email, anResult, resultDesc) {
+
+    let aigeneratedDesc = null
+   const emailBtn =  document.querySelector('#emailBtn');
+
+   const oldHtml = emailBtn.innerHTML;
+
+   emailBtn.innerHTML = "Sending..."
+   try{
+       aigeneratedDesc = await openai(anResult)
+    }catch(err){
+        console.log(err)
+    }
+    emailBtn.innerHTML = oldHtml;
+
+    console.log(aigeneratedDesc)
+
     var viewParams = new URLSearchParams(window.location.search);
     let GryffindorViews = viewParams.get('GryffindorViews');
     let HufflepuffViews = viewParams.get('HufflepuffViews');
@@ -238,11 +286,12 @@ function emi(to_name, to_email, anResult, resultDesc) {
         tonam: to_name,
         emil: to_email,
         result: anResult,
-        resultDesc: resultDesc,
+        resultDesc: aigeneratedDesc ?? resultDesc,
 
 
     };
     console.log(templateParams)
+
 
     emailjs.send('Formservice', 'template_am9aazu', templateParams, "6c7eE2eVv1kXg44En")
         .then(function (response) {
