@@ -13,7 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@500&display=swap" rel="stylesheet">
     </head>
-    <body> 
+    <body onload="getV()"> 
+
         <h1 class="h1">Goodbye!</h1>
         <div class="container">
             <p>Your results have been sent to your email. If you want more quizzes, the links are down below.</p>
@@ -25,7 +26,10 @@
         <div class = "container">
         <p>If you want, you can also see some stats below! Thank you!</p>
         </br>
-        <p>Stats will be added soon!</p>
+        <p>Gryffindor has <span id="GryffindorViews"></span> user(s)</p>
+        <p>Ravenclaw has <span id="RavenclawViews"></span> user(s)</p>
+        <p>Hufflepuff has <span id="HufflepuffViews"></span> user(s)</p>
+        <p>Slytherin has <span id="SlytherinViews"></span> user(s)</p>
         </div>
     </body>
 </html>
